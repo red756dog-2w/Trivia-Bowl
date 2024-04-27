@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JB's Trivia Bowl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marmelad&family=Tektur:wght@600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <h1 id="welcome_header">JB's</h1>
+
+
+    <img src="timer.jpg" id="timer" alt="">
+
+    <!-- welcome page - first page user always encounters - contains rules, dropdown list for categories, start button -->
+
+    <h1>Trivia Bowl</h1>
+
+    <div id="rules">
+        <p class="quiz_info_style" id="quiz_rules">The rules are simple: Pick a category. You will have to answer 20
+            questions. You will
+            have 25
+            seconds to
+            answer each question. At the end, you will see your score ranking.Good luck and happy quizzing!!</p>
+    </div>
+
+
+
+    <!-- <form action="/questpage.html"> -->
+    <form action="quizpage.html">
+        <div id="quiz_general">
+            <div class="gen_questions">
+                <label for="nickname" class="quiz_info_style">Who is the lucky person playing the game?</label>
+                <input type="text" id="nickname" placeholder="type your name" maxlength="25">
+            </div>
+            <div class="gen_questions">
+                <label for="category" class="quiz_info_style">Choose a category:</label>
+                <select name="cat" id="category">
+                    <option value="general_knowledge">General Knowledge</option>
+                    <option value="film_and_tv">Movies & TV</option>
+                    <option value="music">Music</option>
+                    <option value="science">History & Science</option>
+                    <option value="geography">Geography</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+            <div class="gen_questions">
+                <input type="submit" value="Start Game!" id="start_btn" class="btn_style">
+            </div>
+        </div>
+    </form>
+
+
+    <!-- <button>Start!</button> -->
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

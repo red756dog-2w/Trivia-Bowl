@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Bowl</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marmelad&family=Tektur:wght@600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <div>
+        <h1>Hi there, <span id="player_name"></span>!</h1>
+    </div>
+
+    <div id=question_box>
+        <div id=score_time>
+            <p>Question <span id="question_number"></span></p>
+            <p>Score: <span id="current_score">0</span></p>
+            <p>Time Left: <span id="current_time"></span></p>
+
+        </div>
+        <p class="quest_answer_style" id='question_text'>
+
+        </p>
+
+        <div class="two_answers answer_spacing_top">
+            <div class="quest_answer_style answer_size answer_spacing_left">
+                <input type="radio" name="labels" class="ans_radio_btn"><span class="right_wrong_symbol"></span>
+                <span class="answers"></span>
+            </div>
+            <div class="quest_answer_style answer_size answer_spacing_right">
+                <input type="radio" name="labels" class="ans_radio_btn"><span class="right_wrong_symbol"></span>
+                <span class="answers"></span>
+            </div>
+        </div>
+        <div class="two_answers">
+            <div class="quest_answer_style answer_size answer_spacing_left">
+                <input type="radio" name="labels" class="ans_radio_btn"><span class="right_wrong_symbol"></span>
+                <span class="answers"></span>
+            </div>
+            <div class="quest_answer_style answer_size answer_spacing_right">
+
+                <input type="radio" name="labels" class="ans_radio_btn"><span class="right_wrong_symbol"></span>
+                <span class="answers"></span>
+
+            </div>
+        </div>
+
+        <!-- <div id="final_stats">
+            <h5>Congratulations <span id="name_final"></span> on making it this far!</h5>
+            <img src="stats_timer.jpg" id="timer" alt="">
+            <h5>You ended up with <span id="points_final"></span> correct answers out of <span
+                    id="question_amount"></span> total questions</h5>
+            <h5>Your final ranking is: <span id="ranking"></span></h5>
+
+            <button class="btn_style">Play Again</button>
+        </div> -->
+
+        <p class="non_question_text" id='answer_info'>
+        </p>
+
+        <div class="btn_spacing quest_info_hide">
+            <div>
+                <button class="btn_style" id='submit_ans_btn'>Submit Answer!</button>
+                <button id="next_question" class="btn_style">Next Question</button>
+            </div>
+            <div>
+                <button id="restart" class="btn_style"><a href="index.html">Restart!</a></button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div id="final_stats">
+        <h5>Congratulations <span id="name_final"></span> on making it this far!</h5>
+        <!-- <img src="stats_timer.jpg" id="timer" alt=""> -->
+        <h5>You ended up with <span id="points_final" class="final_info"></span> correct answers
+            <!-- out of <span id="question_amount"></span> -->
+            <!-- total questions</h5> -->
+            <h5>Your final ranking is:
+                <div><span id="ranking" class="final_info"></span>
+                </div>
+            </h5>
+
+            <button id="play_again" class="btn_style"><a href="index.html">Play Again</a></button>
+    </div>
+
+    <script src="quiz.js"></script>
+
+</body>
+
+</html>

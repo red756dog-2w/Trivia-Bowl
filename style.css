@@ -1,0 +1,199 @@
+body {
+  background-image: url("fireworks.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1 {
+  color: white;
+  font-family: "Tektur", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 2px 2px rgb(15, 165, 252);
+  font-size: 3rem;
+}
+
+.btn_style {
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: "Tektur", sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+  padding: 10px;
+  background-color: #f63d6e;
+  text-shadow: 1px 1px 20px #000000;
+  border: groove #ffffff 10px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn_style:hover {
+  background-color: rgb(152, 22, 22);
+}
+
+.btn_spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+#answer_info {
+  color: white;
+  font-size: 1.1rem;
+}
+
+#score_time {
+  color: white;
+  text-shadow: 1.6px 1.6px rgb(15, 165, 252);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  font-family: "Marmelad", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  /* font-weight: 600; */
+}
+
+.non_question_text {
+  /* font-family: "Londrina Solid", sans-serif; */
+  color: rgb(192, 192, 192);
+  font-weight: 600;
+  font-family: "Marmelad", sans-serif;
+}
+
+/* only on questpage.html */
+#question_box {
+  height: 30rem;
+  width: 68rem;
+  /* display: flex;
+  flex-direction: column; */
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-top: 16rem;
+  transform: translate(-50%, -50%);
+  border: 10px solid, black;
+  padding: 10px;
+}
+
+#question_text {
+  padding: 3rem;
+  margin-bottom: 3rem;
+  margin-top: 0;
+}
+
+.quest_answer_style {
+  border: 1.2mm solid rgb(192, 192, 192);
+  background-color: rgb(15, 165, 252);
+  padding: 2rem;
+  font-family: "Tektur", sans-serif;
+  text-align: center;
+}
+
+.two_answers {
+  display: flex;
+}
+
+.answer_spacing_top {
+  margin-bottom: 0.5rem;
+}
+.answer_spacing_left {
+  margin-right: 0.25rem;
+}
+
+.answer_spacing_right {
+  margin-left: 0.25rem;
+}
+
+.answer_size {
+  width: 50%;
+}
+
+#final_stats {
+  width: 68rem;
+  position: absolute;
+  left: 15%;
+  top: 25%;
+  /* background-color: #000080; */
+  background-image: url("stats_timer.jpg");
+  border: 8px ridge rgb(15, 165, 252);
+  color: white;
+  text-align: center;
+  font-family: "Marmelad", sans-serif;
+  font-size: 2rem;
+  text-shadow: 2px 2px rgb(15, 165, 252);
+}
+
+.final_info {
+  /* font-family: "Tektur", sans-serif; */
+  color: black;
+  font-size: 4rem;
+  font-weight: bolder;
+}
+
+.hidden {
+  display: none;
+}
+
+/* only on index.html */
+
+#timer {
+  display: block;
+  width: 300px;
+  height: 170px;
+  margin-left: auto;
+  margin-right: auto;
+  --mask: radial-gradient(31.56px at 50% 43.2px, #000 99%, #0000 101%)
+      calc(50% - 32px) 0/64px 51% repeat-x,
+    radial-gradient(31.56px at 50% -27.2px, #0000 99%, #000 101%) 50% 16px/64px
+      calc(51% - 16px) repeat-x,
+    radial-gradient(31.56px at 50% calc(100% - 43.2px), #000 99%, #0000 101%)
+      calc(50% - 32px) 100%/64px 51% repeat-x,
+    radial-gradient(31.56px at 50% calc(100% + 27.2px), #0000 99%, #000 101%)
+      50% calc(100% - 16px) / 64px calc(51% - 16px) repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.quiz_info_style {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: "Marmelad", sans-serif;
+}
+
+#rules {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+#quiz_rules {
+  border: 1.2mm solid rgb(192, 192, 192);
+  background-color: rgb(15, 165, 252);
+  padding: 2rem;
+  width: 50rem;
+}
+
+#quiz_general {
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.gen_questions {
+  width: 100%;
+}
+
+#intro_and_rules {
+}
