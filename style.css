@@ -5,13 +5,18 @@ body {
   background-size: cover;
 }
 
+#intro_page {
+ transform: translate(0, 30%)
+}
+
 h1 {
+  margin-bottom: 2rem;
   color: white;
   font-family: "Tektur", sans-serif;
   font-weight: 600;
   text-align: center;
   text-shadow: 2px 2px rgb(15, 165, 252);
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .btn_style {
@@ -72,14 +77,11 @@ a {
 #question_box {
   height: 30rem;
   width: 68rem;
-  /* display: flex;
-  flex-direction: column; */
   position: relative;
   left: 50%;
   top: 50%;
   margin-top: 16rem;
-  transform: translate(-50%, -50%);
-  border: 10px solid, black;
+  transform: translate(-50%, -20%);
   padding: 10px;
 }
 
@@ -120,8 +122,7 @@ a {
   width: 68rem;
   position: absolute;
   left: 15%;
-  top: 25%;
-  /* background-color: #000080; */
+  top: 25%; 
   background-image: url("stats_timer.jpg");
   border: 8px ridge rgb(15, 165, 252);
   color: white;
@@ -129,10 +130,10 @@ a {
   font-family: "Marmelad", sans-serif;
   font-size: 2rem;
   text-shadow: 2px 2px rgb(15, 165, 252);
+  padding-bottom: 2.4rem;
 }
 
 .final_info {
-  /* font-family: "Tektur", sans-serif; */
   color: black;
   font-size: 4rem;
   font-weight: bolder;
@@ -173,27 +174,40 @@ a {
   display: flex;
   text-align: center;
   justify-content: center;
-}
-
-#quiz_rules {
-  border: 1.2mm solid rgb(192, 192, 192);
-  background-color: rgb(15, 165, 252);
-  padding: 2rem;
-  width: 50rem;
-}
-
-#quiz_general {
-  /* background-color: orange; */
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  text-align: center;
-  justify-content: center;
+  width: 45%;
+  margin: auto;
+  margin-top: 3rem;
 }
 
 .gen_questions {
-  width: 100%;
+  display: flex;
+  width: 45%;
+  align-items: center;
+  margin: auto;
+  justify-content: space-between;
 }
 
-#intro_and_rules {
+.user_info {
+  box-sizing: border-box;
+  width: 15rem;
+  border: 1.2mm solid rgb(192, 192, 192);
+  background-color: rgb(15, 165, 252);
+  padding: 0.5rem;
+  font-family: "Tektur", sans-serif;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+#start_btn {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#trivia_title {
+  display: flex;
+  /* text-align: center; */
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+  width: 50%;
 }
