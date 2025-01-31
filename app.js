@@ -3,7 +3,8 @@ const categoryList = document.querySelector("#category");
 const startButton = document.querySelector("#start_btn");
 
 startButton.addEventListener("click", () => {
-  // localStorage.setItem("categories", example);
+
+  //use local storage to store values that will be used on webpage with quiz questions (quiz.js)
   const categoryLocation = categoryList.selectedIndex;
   const questionCategory = categoryList[categoryLocation].value;
   const actualPlayerName = nameOfPlayer.value;

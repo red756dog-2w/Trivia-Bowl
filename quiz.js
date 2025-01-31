@@ -1,3 +1,7 @@
+
+//retrieve information in variables through local storage from app.js - which was entered on index.html (the home page for the quiz)
+//includes player name which is displayed up top, and category, which will help determine the type of questions
+
 let playerName = document.querySelector("#player_name");
 const newPlayer = localStorage.getItem("nickname");
 const newCategory = localStorage.getItem("category");
@@ -24,12 +28,13 @@ const finalScore = document.querySelector("#points_final");
 const amountOfQuestions = document.querySelector("#question_amount");
 const ranking = document.querySelector("#ranking");
 
+//url will be used to get category of questions for quiz bowl
 let url = `https://the-trivia-api.com/api/questions?categories=${newCategory}&limit=1`;
-// let timer = 10;
 let numberPoints = 0;
-let currentQuestionAmount = 1;
-let currentQuestionNumber = 1;
-const totalQuestionAmount = 7;
+let timerClock;
+let currentQuestionAmount = 0;
+let currentQuestionNumber = 0;
+const totalQuestionAmount = 25;
 let paused = false;
 let answersArray;
 let rankingsArray = [
@@ -38,56 +43,27 @@ let rankingsArray = [
   "One Smart Cookie",
   "Eh, Not Good, not Bad",
   "You Got Some Studying to do",
-  "You Have Got to Read Some Books",
+  "Please, please Read Some Books",
 ];
 
-let sampleOne = totalQuestionAmount - 1;
-let sampleTwo = totalQuestionAmount - 5;
-let sampleThree = totalQuestionAmount - 6;
+const rankings = {
+  "Knowledgable Beyond the Universe": 24,
+  "Einstein Smart": 21,
+  "One Smart Cookie": 16,
+  "Eh, Not Good, not Bad": 12,
+  "You Got Some Studying to do": 5,
+  "Please, please Read Some Books": 0,
+};
 
-// use these ranks when testing 25 questions, delete samples above
-// let firstRank = totalQuestionAmount - 1;
-// let secondRank = totalQuestionAmount - 4;
-// let thirdRank = totalQuestionAmount - 7;
-// let fourthRank = totalQuestionAmount - 11;
-// let fifthRank = totalQuestionAmount - 14;
-// let sixthRank = totalQuestionAmount - 17;
+//hides the final stats modal 
+finalScoreMessage.classList.toggle("hidden"); 
 
-finalScoreMessage.classList.toggle("hidden");
-// questionInfoBox.classList.toggle("hidden");
-
-// let timer = 10;
-// let timerClock = setInterval(() => {
-//   if (timer > -1) {
-//     currentTime.textContent = timer;
-//   } else {
-//     submitAnswerButton.disabled = true;
-//     nextQuestionButton.disabled = false;
-//     messageBelowQuestion.innerText =
-//       "Sorry, you ran out of time.  No points this time. The correct answer was, of course, blah. Keep trying!!";
-//   }
-//   timer--;
-// }, 1000);
-
-// function startTimer() {
-//   let timer = 10;
-//   if (timer > -1) {
-//     currentTime.textContent = timer;
-//   } else {
-//     submitAnswerButton.disabled = true;
-//     nextQuestionButton.disabled = false;
-//     messageBelowQuestion.innerText =
-//       "Sorry, you ran out of time.  No points this time. The correct answer was, of course, blah. Keep trying!!";
-//   }
-//   timer--;
-// }
-
-// function stopTimer() {
-//   clearInterval(timerClock);
-// }
+//sets the initial question/total on the page
 if ((currentQuestionNumber = 1)) {
   questionNumber.textContent = `${currentQuestionNumber} / ${totalQuestionAmount}`;
 }
+
+//calls function to call api and get question and answers to populate the quiz
 getNewQuestionAndAnswers();
 
 //function takes array parameter and mixes the order of the array elements (quiz answers)
@@ -106,8 +82,7 @@ function assignAnswers() {
   quizAnswers.forEach((oneAnswer) => {
     oneAnswer.innerText = answersArray[numAnswers];
     numAnswers++;
-    // console.log(oneAnswer); //delete
-    // console.log(quizAnswers[0]); //delete
+  
   });
 }
 
@@ -117,7 +92,6 @@ function deleteAnswers() {
   quizAnswers.forEach((oneAnswer) => {
     oneAnswer.innerText = "";
     numAnswers++;
-    console.log(oneAnswer); //delete
   });
 }
 
@@ -141,49 +115,45 @@ function getNewQuestionAndAnswers() {
   //api call to get new question and answers
   // requestQuestion
 
+  submitAnswerButton.disabled = true;
   nextQuestionButton.disabled = true;
 
   axios.get(url).then(function (response) {
-    console.log(response); //delete
 
     //takes the question from the response object and displays the question in triviaQuestion element
     triviaQuestion.innerText = response.data[0].question;
-    console.log(triviaQuestion.innerText); //delete
-    let correctAnswer = response.data[0].correctAnswer;
-    console.log(correctAnswer);
+    let rightAnswer = response.data[0].correctAnswer;
+    
     //answersArray is storing 4 answers, 1 incorrect, 3 correct pulled from response object -flatten nested array (incorrect answers) - make one array with 4 elements
-    answersArray = [correctAnswer, response.data[0].incorrectAnswers].flat();
-    console.log(answersArray); //delete
+    answersArray = [rightAnswer, response.data[0].incorrectAnswers].flat();
+    // console.log(answersArray); //delete
 
     randomlyPositionAnswers(answersArray); //randomly positions order of elements in array
 
     assignAnswers(); //displays answers
 
-    // var timers = setInterval(startTimer, 1000);
-
-    let timer = 10;
-    let timerClock = setInterval(() => {
+    let timer = 30;
+    timerClock = setInterval(() => {
       if (timer > -1) {
         currentTime.textContent = timer;
+        selectAnswerButtons.forEach((radioBtn) => {
+          if (radioBtn.checked === true) {
+            submitAnswerButton.disabled = false;
+          }
+        });
       } else {
         submitAnswerButton.disabled = true;
         nextQuestionButton.disabled = false;
-        messageBelowQuestion.innerText =
-          "Sorry, you ran out of time.  No points this time. The correct answer was, of course, blah. Keep trying!!";
+        messageBelowQuestion.innerText = `Sorry, you ran out of time.  No points this time. The correct answer was, of course, ${rightAnswer}. Keep trying!!`;
       }
       timer--;
     }, 1000);
 
-    console.log(timerClock);
 
     submitAnswerButton.addEventListener("click", () => {
-      let correctAnswer = response.data[0].correctAnswer;
       let numButton = 0;
 
       paused = true;
-
-      // stopTimer();
-      // clearInterval(timerClock);
 
       selectAnswerButtons.forEach((answerBtn) => {
         let answerText = quizAnswers[numButton].innerText;
@@ -192,16 +162,18 @@ function getNewQuestionAndAnswers() {
           submitAnswerButton.disabled = true;
           nextQuestionButton.disabled = false;
 
-          if (answerText != correctAnswer) {
+          if (answerText != rightAnswer) {
             //inserts wrong symbol after the radio button
             rightOrWrongSymbols[numButton].innerText = "❌";
 
-            messageBelowQuestion.innerHTML = `Darn, good try, but incorrect!  The correct answer is actually ${correctAnswer} !`;
-          } else if (answerText === correctAnswer) {
+            messageBelowQuestion.innerHTML = `Darn, good try, but incorrect!  The correct answer is actually ${rightAnswer} !`;
+          } else if (answerText === rightAnswer) {
             rightOrWrongSymbols[numButton].innerText = "✔️";
             messageBelowQuestion.innerHTML =
               "Nice job!!  You are correct!  You get a point.  Keep going!!";
+      
             numberPoints++;
+            
             currentScore.innerHTML = numberPoints;
           }
         }
@@ -213,128 +185,61 @@ function getNewQuestionAndAnswers() {
 
       if (currentQuestionNumber == totalQuestionAmount) {
         nextQuestionButton.textContent = "Check out Scores!";
-        // nextQuestionButton.disabled = false;
       }
-    });
-
-    nextQuestionButton.addEventListener("click", () => {
-      // clearInterval(timerClock);
-      // paused = false;
-
-      if (!paused) {
-        clearInterval(timerClock);
-      }
-
-      console.log(paused);
-
-      paused = false;
-
-      currentQuestionAmount++;
-      currentQuestionNumber++;
-
-      console.log(currentQuestionAmount);
-      console.log(currentQuestionNumber);
-
-      // currentQuestionAmount = currentQuestionAmount + 1;
-      // currentQuestionNumber = currrentNumberAmount + 1;
-
-      // currentQuestionAmount++;
-      // currentQuestionNumber++;
-
-      nextQuestionButton.disabled = true;
-      submitAnswerButton.disabled = false;
-
-      let finalPlayerScore = currentScore.textContent;
-
-      // questionNumber.textContent =
-      //   currentQuestionNumber + "/" + totalQuestionAmount;
-      questionNumber.textContent = `${currentQuestionNumber} / ${totalQuestionAmount}`;
-      console.log(questionNumber.textContent);
-      //
-      console.log(currentQuestionAmount);
-      console.log(currentQuestionNumber);
-      // if (currentQuestionNumber == totalQuestionAmount) {
-      //   nextQuestionButton.disabled = true;
-      // }
-
-      if (currentQuestionAmount == totalQuestionAmount) {
-        finalScoreMessage.classList.toggle("hidden");
-        questionInfoBox.classList.add("hidden");
-        nameFinal.textContent = newPlayer;
-        finalScore.textContent = finalPlayerScore;
-        // amountOfQuestions.textContent = totalQuestionAmount;
-
-        switch (true) {
-          case finalPlayerScore >= sampleOne:
-            ranking.textContent = rankingsArray[0];
-            break;
-          case finalPlayerScore >= sampleTwo:
-            ranking.textContent = rankingsArray[1];
-            break;
-          default:
-            ranking.textContent = rankingsArray[2];
-          // case finalPlayerScore
-          //need to finish the other cases
-
-          // switch (true) {
-          //   case finalPlayerScore >= firstRank:
-          //     ranking.textContent = rankingsArray[0];
-          //     break;
-          //   case finalPlayerScore >= secondRank:
-          //     ranking.textContent = rankingsArray[1];
-          //     break;
-          //   case finalPlayerScore >= thirdRank:
-          //     ranking.textContent = rankingsArray[2];
-          //     break;
-          //   case finalPlayerScore >= fourthRank:
-          //     ranking.textContent = rankingsArray[3];
-          //     break;
-          //     // case finalPlayerScore >= fifthRank;
-          //     ranking.textContent = rankingsArray[4];
-          //     break;
-          //   default:
-          //     ranking.textContent = rankingsArray[5];
-          // }
-        }
-        // nextQuestionButton.disabled = true;
-      }
-
-      console.log(currentScore.innerHTML);
-      clearAndReset();
-      getNewQuestionAndAnswers();
-
-      // currentTime.innerText = 10;
-      // getNewQuestionAndAnswers();
-      // console.log(answersArray);
     });
   });
 }
 
-// currentQuestionAmount++;
-// currentQuestionNumber++;
+nextQuestionButton.addEventListener("click", () => {
 
-// function postQuestionResults(answer, points) {
-//   let numButton = 0;
+  if (!paused) {
+    clearInterval(timerClock);
+  }
 
-//   selectAnswerButtons.forEach((answerBtn) => {
-//     let answerText = quizAnswers[numButton].innerText;
+ 
 
-//     if (answerBtn.checked === true) {
-//       submitAnswerButton.disabled = true;
+  paused = false;
 
-//       if (answerText != answer) {
-//         //inserts wrong symbol after the radio button
-//         rightOrWrongSymbols[numButton].innerText = "❌";
+  currentQuestionAmount++;
+  currentQuestionNumber++;
 
-//         messageBelowQuestion.innerHTML = `Darn, good try, but incorrect!  The correct answer is actually ${answer} !`;
-//       } else if (answerText === answer) {
-//         rightOrWrongSymbols[numButton].innerText = "✔️";
-//         messageBelowQuestion.innerHTML =
-//           "Nice job!!  You are correct!  You get a point.  Keep going!!";
-//         points++;
-//         currentScore.innerHTML = points;
-//       }
-//     }
-//     numButton++;
-//   });
-// }
+  nextQuestionButton.disabled = true;
+  submitAnswerButton.disabled = false;
+
+  let finalPlayerScore = currentScore.textContent;
+
+  questionNumber.textContent = `${currentQuestionNumber} / ${totalQuestionAmount}`;
+  
+  if (currentQuestionAmount == totalQuestionAmount) {
+    finalScoreMessage.classList.toggle("hidden");
+    questionInfoBox.classList.add("hidden");
+    nameFinal.textContent = newPlayer;
+    finalScore.textContent = finalPlayerScore;
+
+    switch (true) {
+      case finalPlayerScore >= Object.values(rankings)[0]:
+        ranking.textContent = Object.keys(rankings)[0];
+        break;
+      case finalPlayerScore >= Object.values(rankings)[1]:
+        ranking.textContent = Object.keys(rankings)[1];
+        break;
+      case finalPlayerScore >= Object.values(rankings)[2]:
+        ranking.textContent = Object.keys(rankings)[2];
+        break;
+      case finalPlayerScore >= Object.values(rankings)[3]:
+        ranking.textContent = Object.keys(rankings)[3];
+        break;
+      case finalPlayerScore >= Object.values(rankings)[4]:
+        ranking.textContent = Object.keys(rankings)[4];
+        break;
+      default:
+        ranking.textContent = Object.keys(rankings)[5];
+    }
+  }
+
+  clearAndReset();
+  getNewQuestionAndAnswers();
+
+});
+
+

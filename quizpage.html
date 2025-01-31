@@ -54,16 +54,6 @@
             </div>
         </div>
 
-        <!-- <div id="final_stats">
-            <h5>Congratulations <span id="name_final"></span> on making it this far!</h5>
-            <img src="stats_timer.jpg" id="timer" alt="">
-            <h5>You ended up with <span id="points_final"></span> correct answers out of <span
-                    id="question_amount"></span> total questions</h5>
-            <h5>Your final ranking is: <span id="ranking"></span></h5>
-
-            <button class="btn_style">Play Again</button>
-        </div> -->
-
         <p class="non_question_text" id='answer_info'>
         </p>
 
@@ -72,9 +62,9 @@
                 <button class="btn_style" id='submit_ans_btn'>Submit Answer!</button>
                 <button id="next_question" class="btn_style">Next Question</button>
             </div>
-            <div>
-                <button id="restart" class="btn_style"><a href="index.html">Restart!</a></button>
-            </div>
+            <form action="index.html">
+                <input type="submit" value="Restart!" id="restart" class="btn_style">
+            </form>
         </div>
 
 
@@ -83,16 +73,15 @@
 
     <div id="final_stats">
         <h5>Congratulations <span id="name_final"></span> on making it this far!</h5>
-        <!-- <img src="stats_timer.jpg" id="timer" alt=""> -->
         <h5>You ended up with <span id="points_final" class="final_info"></span> correct answers
-            <!-- out of <span id="question_amount"></span> -->
-            <!-- total questions</h5> -->
             <h5>Your final ranking is:
                 <div><span id="ranking" class="final_info"></span>
                 </div>
             </h5>
 
-            <button id="play_again" class="btn_style"><a href="index.html">Play Again</a></button>
+            <form action="index.html">
+                <input type="submit" value="Play Again" id="play_again" class="btn_style">
+            </form>
     </div>
 
     <script src="quiz.js"></script>
